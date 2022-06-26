@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const LoginBox = styled.div`
-  width: 300px;
-  height: 330px;
+  width: 350px;
+  height: 400px;
   border: 1px solid #ccc;
   margin: 10px auto;
   line-height: 2;
   h2 {
     text-align: center;
     font-weight: 900;
-    font-size: 30px;
+    font-size: 40px;
     margin: 30px 0;
   }
   input {
     display: block;
     height: 40px;
-    width: 250px;
+    width: 270px;
     border: 1px solid #bbb;
     border-radius: 5px;
     background-color: #fafafa;
@@ -26,8 +26,8 @@ const LoginBox = styled.div`
   }
   button {
     display: block;
-    height: 35px;
-    width: 250px;
+    height: 30px;
+    width: 270px;
     color: #fff;
     font-weight: 700;
     background-color: #0095f6;
@@ -37,28 +37,21 @@ const LoginBox = styled.div`
   }
 `;
 
-const Login = () => {
+const Login = ({ authenticated }) => {
   const idInput_ref = useRef();
   const pwInput_ref = useRef();
 
-  useEffect(() => {
-    const LoginInfo = JSON.parse(localStorage.getItem('LoginInfo'));
-
-    if (!LoginInfo) return;
-    console.log(LoginInfo);
-    idInput_ref.current.value = LoginInfo.ID;
-    pwInput_ref.current.value = LoginInfo.Password;
-  });
-
   const onSubmit = () => {
     localStorage.setItem(
-      'LoginInfo',
+      'user',
       JSON.stringify({
         ID: idInput_ref.current.value,
         Password: pwInput_ref.current.value,
       })
     );
   };
+
+  if (authenticated) return <Navigate to="/" />;
 
   return (
     <LoginBox>
@@ -76,9 +69,7 @@ const Login = () => {
           ref={pwInput_ref}
           placeholder="비밀번호"
         />
-        <NavLink to="/main" style={{ textDecoration: 'none' }}>
-          <button type="submit">Login</button>
-        </NavLink>
+        <button type="submit">Login</button>
       </form>
     </LoginBox>
   );
