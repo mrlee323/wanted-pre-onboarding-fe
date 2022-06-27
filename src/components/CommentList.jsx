@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const CommentList = ({ comment }) => {
   const { id, content } = comment;
-
   return (
     <Comment>
       <span className="id">{id}</span>
@@ -12,7 +11,7 @@ const CommentList = ({ comment }) => {
   );
 };
 
-export default CommentList;
+export default React.memo(CommentList);
 
 const Comment = styled.div`
   display: flex;

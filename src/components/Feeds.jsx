@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import FeedForm from './FeedForm';
@@ -6,11 +6,11 @@ import FeedForm from './FeedForm';
 const Feeds = () => {
   const [data, setData] = useState([]);
 
-  const getData = () => {
+  const getData = useCallback(() => {
     const data = fetch('data/myData.json')
       .then((res) => res.json())
       .then((data) => setData(data.post));
-  };
+  }, []);
 
   useEffect(() => {
     getData();

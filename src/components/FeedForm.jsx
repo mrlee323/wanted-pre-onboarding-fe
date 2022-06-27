@@ -47,7 +47,7 @@ const FeedForm = ({ feed }) => {
   );
 };
 
-export default FeedForm;
+export default React.memo(FeedForm);
 
 const Container = styled.div`
   width: 400px;

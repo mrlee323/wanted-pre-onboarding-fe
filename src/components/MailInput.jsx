@@ -14,7 +14,7 @@ const MailInput = (props) => {
   );
 };
 
-export default MailInput;
+export default React.memo(MailInput);
 
 const Input = styled.input`
   display: block;

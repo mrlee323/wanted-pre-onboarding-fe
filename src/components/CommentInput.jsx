@@ -35,7 +35,7 @@ const CommentInput = (props) => {
   );
 };
 
-export default CommentInput;
+export default React.memo(CommentInput);
 
 const Form = styled.form`
   display: flex;

@@ -14,7 +14,7 @@ const PasswordInput = (props) => {
   );
 };
 
-export default PasswordInput;
+export default React.memo(PasswordInput);
 
 const Input = styled.input`
   display: block;

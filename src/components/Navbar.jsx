@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -10,10 +10,10 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 const NavBar = () => {
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem('user');
     alert('로그아웃되었습니다');
-  };
+  }, []);
 
   return (
     <Nav>
