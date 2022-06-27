@@ -1,9 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import GNB from './GNB';
 
-const Nav = styled.nav`
+import Navbar from './Navbar';
+
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+
+const Header = () => {
+  return (
+    <HeaderContiner>
+      <Wrap>
+        <h1>
+          <Image src="images/logo.png" alt="logo" />
+        </h1>
+        <InputWrap>
+          <SearchOutlinedIcon color="disabled" />
+          <Input type="text" placeholder="검색" />
+        </InputWrap>
+        <Navbar />
+      </Wrap>
+    </HeaderContiner>
+  );
+};
+
+export default Header;
+
+const HeaderContiner = styled.header`
   border-bottom: 1px solid #ccc;
   background-color: #fff;
   position: fixed;
@@ -11,7 +32,7 @@ const Nav = styled.nav`
   width: 100%;
 `;
 
-const Container = styled.div`
+const Wrap = styled.div`
   height: 50px;
   width: 90vw;
   max-width: 1500px;
@@ -23,43 +44,25 @@ const Container = styled.div`
   @media (max-width: 650px) {
     height: 60px;
   }
-  h1 {
-    img {
-      height: 40px;
-    }
-  }
-  .input {
-    width: 230px;
-    height: 30px;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    input {
-      background-color: #f2f2f2;
-    }
-    @media (max-width: 650px) {
-      display: none;
-    }
+`;
+
+const Image = styled.img`
+  height: 40px;
+`;
+
+const InputWrap = styled.div`
+  width: 230px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  @media (max-width: 650px) {
+    display: none;
   }
 `;
 
-const Header = () => {
-  return (
-    <Nav>
-      <Container>
-        <h1>
-          <img src="images/logo.png" alt="logo" />
-        </h1>
-        <div className="input">
-          <SearchOutlinedIcon color="disabled" />
-          <input type="text" placeholder="검색" />
-        </div>
-        <GNB />
-      </Container>
-    </Nav>
-  );
-};
-
-export default Header;
+const Input = styled.input`
+  background-color: #f2f2f2;
+`;

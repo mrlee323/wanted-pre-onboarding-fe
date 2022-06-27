@@ -1,6 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const CommentList = ({ comment }) => {
+  const { id, content } = comment;
+
+  return (
+    <Comment>
+      <span className="id">{id}</span>
+      <p className="content">{content}</p>
+    </Comment>
+  );
+};
+
+export default CommentList;
+
 const Comment = styled.div`
   display: flex;
   align-items: center;
@@ -14,16 +27,3 @@ const Comment = styled.div`
     font-size: 13px;
   }
 `;
-
-const CommentList = ({ data }) => {
-  const { id, content } = data;
-
-  return (
-    <Comment>
-      <span className="id">{id}</span>
-      <p className="content">{content}</p>
-    </Comment>
-  );
-};
-
-export default CommentList;

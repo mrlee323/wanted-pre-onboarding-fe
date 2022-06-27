@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useState } from 'react';
 import validation from '../utils/validation';
 
 const useValidation = (email_ref, password_ref) => {

@@ -1,11 +1,53 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import Comment from './Comment';
+
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import Comment from './Comment';
+
+const FeedForm = ({ feed }) => {
+  const { id, profile, content, url, like } = feed;
+  const [loading, setLoading] = useState(true);
+
+  return (
+    <Container>
+      {!loading && (
+        <Header>
+          <div className="profile">
+            <img src={profile} alt="profile" />
+            <span>{id}</span>
+          </div>
+          <MoreHorizOutlinedIcon />
+        </Header>
+      )}
+      <Image src={url} alt="img" onLoad={() => setLoading(false)} />
+      {!loading && (
+        <>
+          <Icon>
+            <div>
+              <FavoriteBorderOutlinedIcon />
+              <MapsUgcOutlinedIcon />
+              <SendRoundedIcon />
+            </div>
+            <BookmarkBorderOutlinedIcon />
+          </Icon>
+          <Like>좋아요 {like}개</Like>
+          <Content>
+            <span className="id">{id}</span>
+            <p className="content">{content}</p>
+          </Content>
+          <Comment />
+        </>
+      )}
+    </Container>
+  );
+};
+
+export default FeedForm;
 
 const Container = styled.div`
   width: 400px;
@@ -78,43 +120,3 @@ const Content = styled.div`
     font-size: 14px;
   }
 `;
-
-const FeedForm = ({ post }) => {
-  const { id, profile, content, url, like } = post;
-  const [loading, setLoading] = useState(true);
-
-  return (
-    <Container>
-      {!loading && (
-        <Header>
-          <div className="profile">
-            <img src={profile} alt="profile" />
-            <span>{id}</span>
-          </div>
-          <MoreHorizOutlinedIcon />
-        </Header>
-      )}
-      <Image src={url} alt="img" onLoad={() => setLoading(false)} />
-      {!loading && (
-        <>
-          <Icon>
-            <div>
-              <FavoriteBorderOutlinedIcon />
-              <MapsUgcOutlinedIcon />
-              <SendRoundedIcon />
-            </div>
-            <BookmarkBorderOutlinedIcon />
-          </Icon>
-          <Like>좋아요 {like}개</Like>
-          <Content>
-            <span className="id">{id}</span>
-            <p className="content">{content}</p>
-          </Content>
-          <Comment />
-        </>
-      )}
-    </Container>
-  );
-};
-
-export default FeedForm;
