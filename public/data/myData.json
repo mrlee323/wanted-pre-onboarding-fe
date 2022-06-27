@@ -1,0 +1,28 @@
+{
+  "post": [
+    {
+      "idx": 1,
+      "id" : "abc_market",
+      "profile" : "images/profile.png",
+      "content" : "#insta#instamood",
+      "url": "images/photo.jpg",
+      "like": 40
+    },
+    {
+      "idx": 2,
+      "id" : "__mm__",
+      "profile" : "images/profile.png",
+      "content" : "#pic#photo#people",
+      "url": "images/photo2.jpg",
+      "like": 20
+    },
+    {
+      "idx": 3,
+      "id" : "_chole",
+      "profile" : "images/profile.png",
+      "content" : "#daily",
+      "url": "images/photo3.jpg",
+      "like": 5
+    }
+  ]
+}

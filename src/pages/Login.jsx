@@ -12,11 +12,12 @@ const LoginBox = styled.div`
   border: 1px solid #ccc;
   margin: 50px auto;
   line-height: 2;
-  h2 {
+  h1 {
     text-align: center;
-    font-weight: 900;
-    font-size: 40px;
-    margin: 30px 0;
+    margin-top: 50px;
+    img {
+      height: 80px;
+    }
   }
   input {
     display: block;
@@ -69,7 +70,9 @@ const Login = () => {
 
   return (
     <LoginBox>
-      <h2>Login</h2>
+      <h1>
+        <img src="images/logo.png" alt="logo" />
+      </h1>
       <form onSubmit={onSubmit}>
         <MailInput onChange={onChange} isValidation={isValidation.email} />
         <PasswordInput

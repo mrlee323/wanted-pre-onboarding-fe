@@ -5,10 +5,15 @@ import GNB from './GNB';
 
 const Nav = styled.nav`
   border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 
 const Container = styled.div`
   height: 50px;
+  width: 90vw;
   max-width: 1500px;
   margin: 0 auto;
   padding: 0 20px;
@@ -19,8 +24,9 @@ const Container = styled.div`
     height: 60px;
   }
   h1 {
-    font-size: 30px;
-    font-weight: 700;
+    img {
+      height: 40px;
+    }
   }
   .input {
     width: 230px;
@@ -43,7 +49,9 @@ const Header = () => {
   return (
     <Nav>
       <Container>
-        <h1>Instagram</h1>
+        <h1>
+          <img src="images/logo.png" alt="logo" />
+        </h1>
         <div className="input">
           <SearchOutlinedIcon color="disabled" />
           <input type="text" placeholder="검색" />
