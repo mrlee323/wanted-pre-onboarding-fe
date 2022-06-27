@@ -1,12 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import MailInput from '../components/MailInput';
+import PasswordInput from '../components/PasswordInput';
+import useValidation from '../hooks/useValidation';
+import signIn from '../utils/signIn';
 
 const LoginBox = styled.div`
   width: 350px;
   height: 400px;
   border: 1px solid #ccc;
-  margin: 10px auto;
+  margin: 50px auto;
   line-height: 2;
   h2 {
     text-align: center;
@@ -30,26 +34,36 @@ const LoginBox = styled.div`
     width: 270px;
     color: #fff;
     font-weight: 700;
-    background-color: #0095f6;
+    background-color: #b2dffc;
     border-radius: 5px;
     margin: 20px auto;
     cursor: pointer;
   }
 `;
 
-const Login = ({ authenticated }) => {
-  const idInput_ref = useRef();
-  const pwInput_ref = useRef();
+const Login = () => {
+  const authenticated = JSON.parse(localStorage.getItem('user'));
+  const email_ref = useRef();
+  const password_ref = useRef();
+  const { isValidation, onChange } = useValidation(email_ref, password_ref);
 
-  const onSubmit = () => {
-    localStorage.setItem(
-      'user',
-      JSON.stringify({
-        ID: idInput_ref.current.value,
-        Password: pwInput_ref.current.value,
-      })
-    );
-  };
+  const onSubmit = useCallback((e) => {
+    const email = email_ref.current;
+    const password = password_ref.current;
+
+    try {
+      signIn(email, password);
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          email: email,
+          password: password,
+        })
+      );
+    } catch (e) {
+      alert('이메일 또는 비밀번호가 일치하지 않습니다');
+    }
+  });
 
   if (authenticated) return <Navigate to="/" />;
 
@@ -57,19 +71,21 @@ const Login = ({ authenticated }) => {
     <LoginBox>
       <h2>Login</h2>
       <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="id"
-          ref={idInput_ref}
-          placeholder="전화번호, 사용자 이름 또는 이메일"
+        <MailInput onChange={onChange} isValidation={isValidation.email} />
+        <PasswordInput
+          onChange={onChange}
+          isValidation={isValidation.password}
         />
-        <input
-          type="password"
-          name="pw"
-          ref={pwInput_ref}
-          placeholder="비밀번호"
-        />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          disabled={!isValidation.email && !isValidation.password}
+          style={{
+            backgroundColor:
+              isValidation.email && isValidation.password && '#0095f6',
+          }}
+        >
+          Login
+        </button>
       </form>
     </LoginBox>
   );
