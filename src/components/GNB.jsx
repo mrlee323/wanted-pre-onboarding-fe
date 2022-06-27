@@ -30,6 +30,11 @@ const GNBContiainer = styled.div`
 `;
 
 const GNB = () => {
+  const logout = () => {
+    localStorage.removeItem('user');
+    alert('로그아웃되었습니다');
+  };
+
   return (
     <GNBContiainer>
       <NavLink to="/" className="link home">
@@ -47,7 +52,7 @@ const GNB = () => {
       <NavLink to="activity" className="link heart">
         <FavoriteBorderOutlinedIcon />
       </NavLink>
-      <NavLink to="/login" className="link logout">
+      <NavLink to="/login" onClick={logout} className="link logout">
         <ExitToAppOutlinedIcon />
       </NavLink>
     </GNBContiainer>
