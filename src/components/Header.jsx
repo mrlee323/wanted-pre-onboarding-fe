@@ -9,9 +9,7 @@ const Header = () => {
   return (
     <HeaderContiner>
       <Wrap>
-        <h1>
-          <Image src="images/logo.png" alt="logo" />
-        </h1>
+        <Image src="images/logo.png" alt="logo" />
         <InputWrap>
           <SearchOutlinedIcon color="disabled" />
           <Input type="text" placeholder="검색" />
@@ -25,9 +23,9 @@ const Header = () => {
 export default Header;
 
 const HeaderContiner = styled.header`
-  border-bottom: 1px solid #ccc;
+  border-bottom: ${({ theme }) => theme.border.main};
   background-color: #fff;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 `;
@@ -41,13 +39,14 @@ const Wrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media (max-width: 650px) {
+  @media ${({ theme }) => theme.media.max} {
     height: 60px;
+    padding: 0;
   }
 `;
 
 const Image = styled.img`
-  height: 40px;
+  height: 45px;
 `;
 
 const InputWrap = styled.div`
@@ -58,7 +57,7 @@ const InputWrap = styled.div`
   display: flex;
   align-items: center;
   padding-left: 10px;
-  @media (max-width: 650px) {
+  @media ${({ theme }) => theme.media.max} {
     display: none;
   }
 `;

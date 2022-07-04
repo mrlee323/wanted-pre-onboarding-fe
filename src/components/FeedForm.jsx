@@ -11,38 +11,32 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 
 const FeedForm = ({ feed }) => {
   const { id, profile, content, url, like } = feed;
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <Container>
-      {!loading && (
-        <Header>
-          <div className="profile">
-            <img src={profile} alt="profile" />
-            <span>{id}</span>
-          </div>
-          <MoreHorizOutlinedIcon />
-        </Header>
-      )}
-      <Image src={url} alt="img" onLoad={() => setLoading(false)} />
-      {!loading && (
-        <>
-          <Icon>
-            <div>
-              <FavoriteBorderOutlinedIcon />
-              <MapsUgcOutlinedIcon />
-              <SendRoundedIcon />
-            </div>
-            <BookmarkBorderOutlinedIcon />
-          </Icon>
-          <Like>좋아요 {like}개</Like>
-          <Content>
-            <span className="id">{id}</span>
-            <p className="content">{content}</p>
-          </Content>
-          <Comment />
-        </>
-      )}
+    <Container isLoading={isLoading}>
+      <Header>
+        <Profile>
+          <ProfileImage src={profile} alt="profile" />
+          <Id>{id}</Id>
+        </Profile>
+        <MoreHorizOutlinedIcon />
+      </Header>
+      <Image src={url} alt="img" onLoad={() => setIsLoading(false)} />
+      <Icon>
+        <IconWrap>
+          <FavoriteBorderOutlinedIcon />
+          <MapsUgcOutlinedIcon />
+          <SendRoundedIcon />
+        </IconWrap>
+        <BookmarkBorderOutlinedIcon />
+      </Icon>
+      <Like>좋아요 {like}개</Like>
+      <ContentWrap>
+        <ContentId>{id}</ContentId>
+        <Content>{content}</Content>
+      </ContentWrap>
+      <Comment />
     </Container>
   );
 };
@@ -50,12 +44,13 @@ const FeedForm = ({ feed }) => {
 export default React.memo(FeedForm);
 
 const Container = styled.div`
-  width: 400px;
+  display: ${({ isLoading }) => (isLoading ? 'none' : 'block')};
+  width: 500px;
   margin: 10px auto;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: ${({ theme }) => theme.border.main};
   @media (max-width: 650px) {
-    width: 310px;
+    width: 100vw;
   }
 `;
 
@@ -64,20 +59,23 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  .profile {
-    display: flex;
-    align-items: center;
-    img {
-      width: 30px;
-      height: 30px;
-      border-radius: 100%;
-      margin-right: 10px;
-    }
-    span {
-      font-weight: 700;
-    }
-  }
+  padding: 10px 13px;
+`;
+
+const Profile = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ProfileImage = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-right: 10px;
+`;
+
+const Id = styled.span`
+  font-weight: 700;
 `;
 
 const Image = styled.img`
@@ -86,37 +84,39 @@ const Image = styled.img`
 
 const Icon = styled.div`
   height: 35px;
-  padding: 0 10px;
+  padding: 0 13px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media (max-width: 650px) {
+  @media ${({ theme }) => theme.media.max} {
     height: 45px;
   }
-  div {
-    width: 100px;
-    display: flex;
-    justify-content: space-between;
-  }
+`;
+
+const IconWrap = styled.div`
+  width: 105px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Like = styled.div`
-  height: 30px;
-  font-size: 13px;
+  height: 22px;
+  font-size: 14px;
   font-weight: 600;
-  padding: 7px 10px;
+  padding: 7px 13px 0px;
 `;
 
-const Content = styled.div`
+const ContentWrap = styled.div`
   display: flex;
   align-items: center;
-  padding: 7px 10px 15px;
-  .id {
-    font-size: 14px;
-    font-weight: 700;
-    margin-right: 10px;
-  }
-  .content {
-    font-size: 14px;
-  }
+  padding: 7px 13px 15px;
+`;
+
+const ContentId = styled.span`
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 10px;
+`;
+const Content = styled.p`
+  font-size: 14px;
 `;

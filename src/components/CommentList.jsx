@@ -1,28 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CommentList = ({ comment }) => {
-  const { id, content } = comment;
+const CommentList = ({ id, comment }) => {
+  console.log(id, comment);
   return (
-    <Comment>
-      <span className="id">{id}</span>
-      <p className="content">{content}</p>
-    </Comment>
+    <CommentWrap>
+      <Id>{id}</Id>
+      <Comment>{comment}</Comment>
+    </CommentWrap>
   );
 };
 
 export default React.memo(CommentList);
 
-const Comment = styled.div`
+const CommentWrap = styled.div`
   display: flex;
   align-items: center;
-  padding: 7px 10px 7px 25px;
-  .id {
-    font-size: 14px;
-    font-weight: 700;
-    margin-right: 10px;
-  }
-  .content {
-    font-size: 13px;
-  }
+  padding: 3px 15px 7px 25px;
+`;
+
+const Id = styled.span`
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 10px;
+`;
+
+const Comment = styled.p`
+  font-size: 13px;
+  text-overflow: ellipsis;
 `;

@@ -8,16 +8,20 @@ const useValidation = (email_ref, password_ref) => {
   });
 
   const onChange = (e) => {
-    const { name, value } = e.target;
+    const { id, value } = e.target;
 
-    if (name === 'email') email_ref.current = value;
-    else password_ref.current = value;
+    id === 'email'
+      ? (email_ref.current = value)
+      : (password_ref.current = value);
 
-    if (!validation(name, value)) return;
+    if (isValidation[id] === '')
+      setIsValidation((isValidation) => ({ ...isValidation, [id]: false }));
+
+    if (isValidation[id] === validation(id, value)) return;
 
     setIsValidation((isValidation) => ({
       ...isValidation,
-      [name]: validation(name, value),
+      [id]: validation(id, value),
     }));
   };
 

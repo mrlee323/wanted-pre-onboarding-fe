@@ -5,7 +5,6 @@ const users = [
 ];
 
 const signIn = (email, password) => {
-  console.log(email, password);
   const user = users.find(
     (user) => user.email === email && user.password === password
   );

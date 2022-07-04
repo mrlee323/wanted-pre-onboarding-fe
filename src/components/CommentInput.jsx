@@ -16,9 +16,9 @@ const CommentInput = (props) => {
     const value = input_ref.current.value;
     if (value === '') return alert('내용을 입력해주세요');
 
-    setComment((comment) => [
-      ...comment,
-      { id: email.slice(0, index), content: value },
+    setComment((comments) => [
+      ...comments,
+      { id: email.slice(0, index), comment: value },
     ]);
 
     e.target.reset();
@@ -26,10 +26,10 @@ const CommentInput = (props) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <div>
+      <InputWrap>
         <AccountCircleOutlinedIcon />
         <Input type="text" ref={input_ref} placeholder="댓글달기..." />
-      </div>
+      </InputWrap>
       <Button type="submit">게시</Button>
     </Form>
   );
@@ -41,17 +41,20 @@ const Form = styled.form`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  div {
-    display: flex;
-    align-items: center;
-  }
+  padding: 10px 13px;
+  margin-top: 8px;
+  border-top: ${({ theme }) => theme.border.sub};
+`;
+
+const InputWrap = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Input = styled.input`
   width: 300px;
   margin-left: 10px;
-  @media (max-width: 650px) {
+  @media ${({ theme }) => theme.media.max} {
     width: 210px;
   }
 `;
@@ -59,6 +62,6 @@ const Input = styled.input`
 const Button = styled.button`
   background-color: #fff;
   font-weight: 600;
-  color: #0095f6;
+  color: ${({ theme }) => theme.color.active};
   cursor: pointer;
 `;

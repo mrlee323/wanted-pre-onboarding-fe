@@ -9,11 +9,10 @@ import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
+import useAuthenticated from '../hooks/useAuthenticated';
+
 const NavBar = () => {
-  const logout = useCallback(() => {
-    localStorage.removeItem('user');
-    alert('로그아웃되었습니다');
-  }, []);
+  const { logout } = useAuthenticated();
 
   return (
     <Nav>
@@ -32,7 +31,7 @@ const NavBar = () => {
       <NavLink to="activity" className="link heart">
         <FavoriteBorderOutlinedIcon />
       </NavLink>
-      <NavLink to="/login" onClick={logout} className="link logout">
+      <NavLink to="login" onClick={logout} className="link logout">
         <ExitToAppOutlinedIcon />
       </NavLink>
     </Nav>
@@ -48,14 +47,11 @@ const Nav = styled.nav`
   .link {
     color: #262626;
   }
-  @media (max-width: 650px) {
-    width: 100px;
-    .home {
-      display: none;
-    }
-    .message {
-      display: none;
-    }
+
+  @media ${({ theme }) => theme.media.max} {
+    width: 110px;
+    .home,
+    .message,
     .post {
       display: none;
     }

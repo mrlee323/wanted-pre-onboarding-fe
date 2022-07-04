@@ -25,9 +25,4 @@ const Feeds = () => {
 
 export default Feeds;
 
-const Feed = styled.div`
-  padding-top: 55px;
-  @media (max-width: 650px) {
-    padding-top: 65px;
-  }
-`;
+const Feed = styled.div``;

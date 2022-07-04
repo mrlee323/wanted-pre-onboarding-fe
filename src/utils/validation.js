@@ -4,10 +4,7 @@ const validation = (type, value) => {
   const passwordRegex =
     /^(?=.*[A-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}$/;
 
-  const emailValidation = type === 'email' && emailRegex.test(value);
-  const passwordValidation = type === 'password' && passwordRegex.test(value);
-
-  return type === 'email' ? emailValidation : passwordValidation;
+  return type === 'email' ? emailRegex.test(value) : passwordRegex.test(value);
 };
 
 export default validation;

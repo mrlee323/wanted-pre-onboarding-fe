@@ -2,42 +2,28 @@ import React, { useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Navigate } from 'react-router-dom';
 
+import useValidation from '../hooks/useValidation';
+import useAuthenticated from '../hooks/useAuthenticated';
+
 import MailInput from '../components/MailInput';
 import PasswordInput from '../components/PasswordInput';
-
-import useValidation from '../hooks/useValidation';
-
-import signIn from '../utils/signIn';
 
 const Login = () => {
   const email_ref = useRef();
   const password_ref = useRef();
-  const authenticated = JSON.parse(localStorage.getItem('user'));
   const { isValidation, onChange } = useValidation(email_ref, password_ref);
+  const { isAuthenticated, login } = useAuthenticated();
 
   const onSubmit = useCallback((e) => {
-    const email = email_ref.current;
-    const password = password_ref.current;
-    try {
-      signIn(email, password);
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          email: email,
-          password: password,
-        })
-      );
-    } catch (e) {
-      alert('이메일 또는 비밀번호가 일치하지 않습니다');
-    }
+    login(email_ref.current, password_ref.current);
   });
 
-  if (authenticated) return <Navigate to="/" />;
+  if (isAuthenticated) return <Navigate to="/" />;
 
   return (
     <LogIn>
       <Image src="images/logo.png" alt="logo" />
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <MailInput onChange={onChange} isValidation={isValidation.email} />
         <PasswordInput
           onChange={onChange}
@@ -49,7 +35,7 @@ const Login = () => {
         >
           Login
         </Button>
-      </form>
+      </Form>
     </LogIn>
   );
 };
@@ -69,19 +55,17 @@ const Image = styled.img`
   height: 80px;
 `;
 
+const Form = styled.form``;
+
 const Button = styled.button`
   display: block;
   height: 30px;
   width: 270px;
   color: #fff;
   font-weight: 700;
-  background-color: #b2dffc;
   border-radius: 5px;
   margin: 20px auto;
   cursor: pointer;
-  ${(props) =>
-    !props.disabled &&
-    css`
-      background-color: #0095f6;
-    `}
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.color.disabled : theme.color.active};
 `;

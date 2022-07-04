@@ -4,15 +4,17 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 
+import useAuthenticated from './hooks/useAuthenticated';
+
 function App() {
-  const authenticated = JSON.parse(localStorage.getItem('user'));
+  const { isAuthenticated } = useAuthenticated();
+
+  const Main = isAuthenticated ? <Home /> : <Navigate to="/login" replace />;
+
   return (
     <Routes>
-      <Route
-        path="/"
-        element={authenticated ? <Home /> : <Navigate to="/login" replace />}
-      />
-      <Route path="/login" element={<Login authenticated={authenticated} />} />
+      <Route path="/" element={Main} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
