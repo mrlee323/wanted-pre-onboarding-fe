@@ -13,6 +13,8 @@ const useValidation = (email_ref, password_ref) => {
     if (name === 'email') email_ref.current = value;
     else password_ref.current = value;
 
+    if (!validation(name, value)) return;
+
     setIsValidation((isValidation) => ({
       ...isValidation,
       [name]: validation(name, value),
