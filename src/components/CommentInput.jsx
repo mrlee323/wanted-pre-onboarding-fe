@@ -2,13 +2,14 @@ import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import useAuthenticated from '../hooks/useAuthenticated';
 
 const CommentInput = (props) => {
+  const { isAuthenticated } = useAuthenticated();
   const { setComment } = props;
   const input_ref = useRef();
 
-  const email = JSON.parse(localStorage.getItem('user')).email;
-  const index = email.search(/@/);
+  const index = isAuthenticated?.email.search(/@/);
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
